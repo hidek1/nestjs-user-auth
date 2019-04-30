@@ -17,7 +17,9 @@ export class User implements IUser {
     @Column()
     password: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     token?: string;
 
     @CreateDateColumn()
