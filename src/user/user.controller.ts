@@ -17,19 +17,6 @@ export class UserController {
     return this.userService.findByToken(params.token);
   }
 
-  @Get('token')
-  async createToken(): Promise<any> {
-    return await this.userService.createToken();
-  }
-
-  // @Get('data')
-  // @UseGuards(AuthGuard())
-  // findAll() {
-  //   // this route is restricted by AuthGuard
-  //   // JWT strategy
-  //   return "passed";
-  // }
-
   @Post('login')
   login(@Body() loginDto: LoginDto) {
     return this.userService.logIn(loginDto)
