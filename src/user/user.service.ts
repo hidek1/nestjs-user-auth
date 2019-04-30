@@ -14,15 +14,6 @@ export class UserService {
         private readonly userRepository: Repository<User>
     ) {}
 
-  async createToken() {
-    const user: JwtPayload = { email: 'test@email.com'};
-    const accessToken = this.jwtService.sign(user);
-    return {
-      expiresIn: 3600,
-      accessToken,
-    };
-  }
-
   async validateUser(payload: JwtPayload): Promise<any> {
     // put some validation logic here
     // for example query user by id/email/username
@@ -88,7 +79,6 @@ export class UserService {
         });
     }
 
-    // ユーザを追加する
     add(user: User): Promise<User> {
         this.findByEmail(user.email)
         .then((currentUser: User) => {
@@ -98,9 +88,9 @@ export class UserService {
             else {
                 return new Promise((resolve, reject) => {
                     if (currentUser === undefined) {
-                        // パスワードをハッシュ化する
+
                         user.password = this.getPasswordHash(user.password);
-                        // ユーザ情報を設定する
+
                         this.userRepository.save<User>(user)
                         .then((result: User) => {
                             resolve(result);
@@ -140,6 +130,7 @@ export class UserService {
                     reject("failed");
                 } else {
                     const passwordDoesMatch = await this.matchPassword(currentUser.password, loginDto.password);
+                    console.log(passwordDoesMatch);
                     if(!passwordDoesMatch) {
                         reject("failed");
                     }
