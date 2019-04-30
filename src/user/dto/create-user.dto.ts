@@ -9,7 +9,4 @@ export class CreateUserDto {
 
   @IsString()
   readonly password: string;
-
-  @IsString()
-  readonly token: string;
 }

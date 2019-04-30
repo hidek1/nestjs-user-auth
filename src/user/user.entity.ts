@@ -18,7 +18,7 @@ export class User implements IUser {
     password: string;
 
     @Column()
-    token: string;
+    token?: string;
 
     @CreateDateColumn()
     readonly createdAt?: Date;
@@ -26,8 +26,8 @@ export class User implements IUser {
     @UpdateDateColumn()
     readonly updatedAt?: Date;
 
-    constructor(token: string, name: string) {
+    constructor(name: string, email: string) {
       this.name = name;
-      this.token = "";
+      this.email = email;
     }
 }
